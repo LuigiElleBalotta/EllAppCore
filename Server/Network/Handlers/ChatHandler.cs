@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Server.Classes;
+using Server.Classes.Entities;
 using Server.definitions;
 using Server.Network.Packets;
 using Server.Network.Packets.Client;
@@ -26,7 +27,7 @@ namespace Server.Network.Handlers
 		{
 			Console.WriteLine("Received CHAT LIST REQUEST from AccountID = " + packet.AccountID + ".");
 			int accountid = packet.AccountID;
-			List<Chat> chatlist = AccountMgr.GetChats( accountid );
+			List<ChatRoomForApp> chatlist = AccountMgr.GetChats( accountid );
 			Sessions.First(s => s.user.idAccount == accountid).CreateResponse(new MessagePacket(MessageType.MSG_TYPE_CHAT_REQUEST_LIST_RESPONSE, 0, accountid, new ChatRequestListResponse{ ChatList = chatlist }));
 		}
 	}

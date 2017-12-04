@@ -34,11 +34,11 @@ namespace Server.Commands
 		{
 			foreach (var session in sessions)
 			{
-				Console.WriteLine("Message to send: ");
+				/*Console.WriteLine("Message to send: ");
 				var msg = Console.ReadLine();
 				Chat c = new Chat(ChatType.CHAT_TYPE_GLOBAL_CHAT, "", msg, "Server Message", session.user.username);
 				var message = new MessagePacket(MessageType.MSG_TYPE_CHAT, 0, session.user.idAccount, JsonConvert.SerializeObject(c));
-				session.CreateResponse(message);
+				session.CreateResponse(message);*/
 			}
 		}
 
@@ -55,7 +55,7 @@ namespace Server.Commands
 
 		public void Fakemessage(List<Session> sessions)
 		{
-			Console.WriteLine("Insert the username: ");
+			/*Console.WriteLine("Insert the username: ");
 			string readLine = Console.ReadLine();
 			if (readLine != null)
 			{
@@ -113,7 +113,7 @@ namespace Server.Commands
 							break;
 					}
 				} while (!validChoice);
-			}
+			}*/
 		}
 
 		public void Clearconsole()
