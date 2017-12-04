@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Server.Classes;
+﻿using Server.Classes;
 using Server.definitions;
 
 namespace Server.Network.Packets.Server

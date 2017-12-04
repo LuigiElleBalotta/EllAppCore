@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Server.Classes;
 using Server.definitions;
-using Server.Network.Packets;
 using Server.Network.Packets.Client;
 using Server.Network.Packets.Server;
 

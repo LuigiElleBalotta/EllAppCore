@@ -4,7 +4,6 @@ using System.Linq;
 using Server.Classes;
 using Server.Classes.Entities;
 using Server.definitions;
-using Server.Network.Packets;
 using Server.Network.Packets.Client;
 using Server.Network.Packets.Server;
 

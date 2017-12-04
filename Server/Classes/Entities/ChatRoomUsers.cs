@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Lappa.ORM;
+﻿using Lappa.ORM;
 
 namespace Server.Classes.Entities
 {
