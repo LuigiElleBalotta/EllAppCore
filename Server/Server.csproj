@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project=".\default.props" />
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MySql.Data" Version="8.0.9-dmr" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.1-beta1" />
+    <PackageReference Include="NLog" Version="5.0.0-beta11" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LappaORM\src\Lappa.ORM\Lappa.ORM.csproj" />
+  </ItemGroup>
+
+</Project>
