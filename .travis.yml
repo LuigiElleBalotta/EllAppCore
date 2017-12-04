@@ -8,4 +8,3 @@ install:
 
 script:
 - dotnet build Server/Server.csproj
-- dotnet test Server/Server.csproj
