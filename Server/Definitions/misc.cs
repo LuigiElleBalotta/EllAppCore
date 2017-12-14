@@ -29,7 +29,7 @@ namespace Server.definitions
             if (ID != 0)
             {
                 Account acc = Utils.mysqlDB.EllAppDB.Single<Account>( row => row.idAccount == ID );
-                return acc.username;
+                return acc.Username;
             }
             else
                 return "Server Message";
@@ -40,7 +40,7 @@ namespace Server.definitions
             
             if (username != "")
             {
-                Account acc = Utils.mysqlDB.EllAppDB.Single<Account>( row => row.username == username );
+                Account acc = Utils.mysqlDB.EllAppDB.Single<Account>( row => row.Username == username );
                 return acc.idAccount;
             }
             else

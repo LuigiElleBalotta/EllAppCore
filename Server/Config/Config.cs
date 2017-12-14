@@ -9,5 +9,7 @@
 		public string MySQLUser { get; set; }
 		public string MySQLPassword { get; set; }
 		public string MySQLDB { get; set; }
+
+        public bool DebugQuery { get; set; }
     }
 }

@@ -6,12 +6,12 @@ namespace Server.Classes.Entities
 	public class Account : Entity
 	{
 		public int		idAccount { get; set; }
-		public string	username { get; set; }
-		public string	password { get; set; }
-		public string	email { get; set; }
-		public DateTime data_creazione { get; set; }
-		public string	last_connection { get; set; }
-		public string	last_ip { get; set; }
-		public bool		isOnline { get; set; }
+		public string	Username { get; set; }
+		public string	Password { get; set; }
+		public string	Email { get; set; }
+		public DateTime DataCreazione { get; set; }
+		public string	LastConnection { get; set; }
+		public string	LastIp { get; set; }
+		public bool		IsOnline { get; set; }
 	}
 }

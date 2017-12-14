@@ -14,7 +14,7 @@ namespace Server.Classes
             EllAppDB = new Database();
 			switch( dbtype ) {
 				case DatabaseType.MySql:
-					Connected = EllAppDB.Initialize( GetMySqlConnectionString( conf ), dbtype, false, false, true );
+					Connected = EllAppDB.Initialize( GetMySqlConnectionString( conf ), dbtype, false, false, conf.DebugQuery );
 					break;
 				case DatabaseType.MSSql:
 					throw new NotImplementedException( "MSSQL non ancora implementato." );

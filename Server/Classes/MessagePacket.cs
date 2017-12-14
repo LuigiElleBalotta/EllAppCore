@@ -22,14 +22,14 @@ namespace Server.Classes
             string _from = "";
             if (id != 0)
             {
-                /*MySqlCommand cmd = new MySqlCommand("SELECT username FROM accounts WHERE idAccount = @id;", DB.EllAppDB);
+                /*MySqlCommand cmd = new MySqlCommand("SELECT Username FROM accounts WHERE idAccount = @id;", DB.EllAppDB);
                 MySqlParameter idParameter = new MySqlParameter("@id", MySqlDbType.Int32, 0);
                 idParameter.Value = id;
                 cmd.Parameters.Add(idParameter);
                 MySqlDataReader row = cmd.ExecuteReader();
                 while (row.Read())
                 {
-                    from = row["username"].ToString();
+                    from = row["Username"].ToString();
                 }
                 row.Close();*/
             }

@@ -49,10 +49,9 @@ namespace Server
                                 metodo.Invoke(cmd, new object[]{ Server });
                                 break;
                             case "commands":
-                                metodo.Invoke(cmd, null);
-                                break;
                             case "createaccount":
                             case "clearconsole":
+                                metodo.Invoke(cmd, null);
                                 break;
                             default:
                                 logger.Warn($"Unknown command \"{content}\".");

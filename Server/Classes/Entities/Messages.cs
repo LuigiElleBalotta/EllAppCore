@@ -3,7 +3,7 @@ using Lappa.ORM;
 
 namespace Server.Classes.Entities
 {
-    public class Messages : Entity
+    public class Message : Entity
     {
         public int ID { get; set; }
         public int ChatRoom { get; set; }

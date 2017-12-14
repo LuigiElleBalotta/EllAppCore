@@ -22,11 +22,11 @@ namespace Server.Classes
 
             Account acc = new Account
                           {
-                              data_creazione = DateTime.Now,
-                              email = email,
-                              last_connection = DateTime.MinValue.ToString( Misc.DATETIME_FORMAT ),
-                              username = username,
-                              password = hashedpsw
+                              DataCreazione = DateTime.Now,
+                              Email = email,
+                              LastConnection = DateTime.MinValue.ToString( Misc.DATETIME_FORMAT ),
+                              Username = username,
+                              Password = hashedpsw
                           };
 
             if( Utils.mysqlDB.EllAppDB.Insert<Account>( acc )) {
@@ -48,7 +48,7 @@ namespace Server.Classes
             password = password.ToUpper();
             username = username.ToUpper();
 
-            Account ret = Utils.mysqlDB.EllAppDB.Single<Account>( acc => acc.username == username && acc.password == password );
+            Account ret = Utils.mysqlDB.EllAppDB.Single<Account>( acc => acc.Username == username && acc.Password == password );
 
             return ret;
         }
@@ -63,7 +63,7 @@ namespace Server.Classes
 
         public static string GetUsername( Account account )
         {
-            return account.username;
+            return account.Username;
         }
 
         public static int GetID( Account account )
@@ -73,17 +73,17 @@ namespace Server.Classes
 
         public static bool IsOnline( Account account )
         {
-            return Utils.mysqlDB.EllAppDB.Single<Account>( row => row.idAccount == account.idAccount ).isOnline;
+            return Utils.mysqlDB.EllAppDB.Single<Account>( row => row.idAccount == account.idAccount ).IsOnline;
         }
 
         public static void SetOnline( Account account )
         {
-            Utils.mysqlDB.EllAppDB.Update<Account>( row => row.idAccount == account.idAccount, row => row.isOnline.Set( true ));
+            Utils.mysqlDB.EllAppDB.Update<Account>( row => row.idAccount == account.idAccount, row => row.IsOnline.Set( true ));
         }
 
         public static void SetOffline( Account account )
         {
-            Utils.mysqlDB.EllAppDB.Update<Account>( row => row.idAccount == account.idAccount, row => row.isOnline.Set( false ));
+            Utils.mysqlDB.EllAppDB.Update<Account>( row => row.idAccount == account.idAccount, row => row.IsOnline.Set( false ));
         }
 
 	    public static List<ChatMessage> GetChat(int AccountID, string ChatRequestID)
@@ -137,8 +137,8 @@ namespace Server.Classes
                         crfa = new ChatRoomForApp
                                               {
                                                   ChatRoomID = chatroomInfo.ID,
-                                                  ChatRoomName = destinatario.username,
-                                                  Destinatario = destinatario.username,
+                                                  ChatRoomName = destinatario.Username,
+                                                  Destinatario = destinatario.Username,
                                                   DestinatarioID = destinatario.idAccount,
                                                   Type = chatroomInfo.Type
                                               };

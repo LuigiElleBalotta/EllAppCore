@@ -4,5 +4,6 @@
 	"MySQLHost": "127.0.0.1",
 	"MySQLUser": "root",
 	"MySQLPassword": "",
-	"MySQLDB": "EllApp"
+  "MySQLDB": "EllApp",
+  "DebugQuery":  1 //0 => false, 1 => true 
 }

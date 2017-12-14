@@ -14,7 +14,7 @@ namespace Server.Commands
 			foreach(var session in sessions)
 			{
 				Console.WriteLine("User ID: " + session.user.idAccount);
-				Console.WriteLine("User Name: " + session.user.username);
+				Console.WriteLine("User Name: " + session.user.Username);
 				Console.WriteLine("Connected from: " + session.context.Socket.RemoteEndPoint.Serialize().ToString());
 				Console.WriteLine("-------------------------------------");
 			}
@@ -33,7 +33,7 @@ namespace Server.Commands
 			{
 				/*Console.WriteLine("Message to send: ");
 				var msg = Console.ReadLine();
-				Chat c = new Chat(ChatType.CHAT_TYPE_GLOBAL_CHAT, "", msg, "Server Message", session.user.username);
+				Chat c = new Chat(ChatType.CHAT_TYPE_GLOBAL_CHAT, "", msg, "Server Message", session.user.Username);
 				var message = new MessagePacket(MessageType.MSG_TYPE_CHAT, 0, session.user.idAccount, JsonConvert.SerializeObject(c));
 				session.CreateResponse(message);*/
 			}
@@ -41,18 +41,18 @@ namespace Server.Commands
 
 		public void Createaccount()
 		{
-			Console.WriteLine("Insert username:");
+			Console.WriteLine("Insert Username:");
 			string username = Console.ReadLine();
-			Console.WriteLine("Insert password:");
+			Console.WriteLine("Insert Password:");
 			string password = Console.ReadLine();
-			Console.WriteLine("Insert email:");
+			Console.WriteLine("Insert Email:");
 			string email = Console.ReadLine();
 			AccountMgr.CreateAccount(username, password, email);
 		}
 
 		public void Fakemessage(List<Session> sessions)
 		{
-			/*Console.WriteLine("Insert the username: ");
+			/*Console.WriteLine("Insert the Username: ");
 			string readLine = Console.ReadLine();
 			if (readLine != null)
 			{
@@ -66,7 +66,7 @@ namespace Server.Commands
 					{
 						case 1:
 							validChoice = true;
-							Console.WriteLine("Insert the destinatary username:");
+							Console.WriteLine("Insert the destinatary Username:");
 							string duname = readLine.ToUpper();
 							Console.WriteLine("Insert your message: ");
 							string tmpmessage = readLine;
@@ -82,7 +82,7 @@ namespace Server.Commands
 							if (sessions.Any(s => s.user.idAccount == to))
 							{
 								logger.Info("L'utente è nella lista delle sessioni");
-								if (sessions.First(s => s.user.idAccount == to).user.isOnline)
+								if (sessions.First(s => s.user.idAccount == to).user.IsOnline)
 								{
 									logger.Info("L'utente è online");
 									Session session = sessions.SingleOrDefault(s => s.user.idAccount == to);

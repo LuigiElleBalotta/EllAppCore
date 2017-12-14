@@ -60,7 +60,7 @@ namespace Server.Network.Handlers
 		        if(packet.WantWelcomeMessage)
 		        {
 			        //Create the welcome message object
-			        //Chat chat = new Chat{ chattype = ChatType.CHAT_TYPE_GLOBAL_CHAT, text = "Benvenuto " + s.user.username };
+			        //Chat chat = new Chat{ chattype = ChatType.CHAT_TYPE_GLOBAL_CHAT, text = "Benvenuto " + s.user.Username };
 			        AccountMgr.SetOnline( s.user );
 			        //var welcomeMessage = new MessagePacket(MessageType.MSG_TYPE_CHAT, 0, s.user.idAccount, chat);
 			        //s.CreateResponse(welcomeMessage);
