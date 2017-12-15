@@ -65,12 +65,12 @@
 
     function connectToServer()
     {
-        if (!isConnected)
-        {
-			conn = new WebSocket('ws://192.168.0.113:8080');
+        if (!isConnected) {
+            
+            conn = new WebSocket('ws://192.168.0.113:10726');
             conn.onmessage = function (e) {
                 dataReceived = e.data;
-                if (dataReceived != "") {
+                if (dataReceived !== "") {
                     var obj = JSON.parse(dataReceived);
                     switch(obj.MessageType)
                     {
@@ -117,17 +117,17 @@
                                 }
                                 break;
                         case MessageType.MSG_TYPE_CHAT_REQUEST_LIST_RESPONSE:
-							var ChatList = JSON.parse(obj.data.ChatList);
-							for (var i = 0; i < ChatList.length; i++)
+                            var ChatList = JSON.parse(obj.data.ChatList);
+                            for (var i = 0; i < ChatList.length; i++)
                             {
-								var chat = ChatList[i];
+                                var chat = ChatList[i];
                                 switch (chat.chattype)
                                 {
                                     case ChatType.CHAT_TYPE_USER_TO_USER:
-                                        if ($('.item[data-chatroomid="' + chat.ChatRoom + '" ]').length == 0)
+                                        if ($('.item[data-chatroomid="' + chat.ChatRoom + '" ]').length === 0)
                                         {
                                             var contact = "";
-                                            if (chat.ChatFrom == localStorage.getItem("uname").toString().toUpperCase())
+                                            if (chat.ChatFrom === localStorage.getItem("uname").toString().toUpperCase())
                                                 contact = chat.ChatTo;
                                             else
                                                 contact = chat.ChatFrom;
@@ -151,7 +151,7 @@
                                     case ChatType.CHAT_TYPE_USER_TO_USER:
                                         var contact = "";
                                         var myusername = localStorage.getItem("uname");
-                                        if (chat.ChatFrom == myusername.toString().toUpperCase())
+                                        if (chat.ChatFrom === myusername.toString().toUpperCase())
                                         {
                                             $("#container_chat").append('<div class="row"><div class="col-xs-12 text-right"><div class="bubble bubble--alt">' + chat.text + '</div></div></div>');
                                         }
@@ -175,9 +175,11 @@
                 $("#container_text").hide();
                 var loginObj = new Object();
                 loginObj.Type = CommandType.login;
-                loginObj.Username = localStorage.getItem("uname");
-                loginObj.Psw = localStorage.getItem("psw");
-                loginObj.WantWelcomeMessage = 1;
+                loginObj.LoginPacket = {
+                    Username: localStorage.getItem("uname"),
+                    Psw: localStorage.getItem("psw"),
+                    WantWelcomeMessage: 1
+                };
                 loginObj = JSON.stringify(loginObj);
                 conn.send(loginObj);
 
@@ -206,7 +208,7 @@
 
     function sendMessageOnEnterKey(e)
     {
-        if(e.keyCode == 13)
+        if(e.keyCode === 13)
         {
             sendMessage($("#container_chat").data("roomtype"));
         }
@@ -215,26 +217,31 @@
     function sendMessage(_ChatType)
     {
         var messaggio = $("#message").val();
-        if (messaggio != "") {
+        if (messaggio !== "") {
             if (isSpecialCommand(messaggio))
                 executeCommand(messaggio);
             else {
                 $("#container_chat").append('<div class="row"><div class="col-xs-12 text-right"><div class="bubble bubble--alt">' + messaggio + '</div></div></div>');
-                var messageObj = new Object();
-                messageObj.Type = CommandType.message;
-                messageObj.Message = messaggio;
-                messageObj.ToType = _ChatType;
-                messageObj.From = accID;
-                if(CurrentChatRoomID == "globalchat")
-                    messageObj.To = 0;
+                var to = 0;
+                if(CurrentChatRoomID === "globalchat")
+                    to = 0;
                 else
                 {
                     var res = CurrentChatRoomID.split("-");
-                    if (res[0] != accID)
-                        messageObj.To = res[0];
+                    if (res[0] !== accID)
+                        to = res[0];
                     else
-                        messageObj.To = res[1];
+                        to = res[1];
                 }
+
+                var messageObj = new Object();
+                messageObj.Type = CommandType.message;
+                messageObj.MessagePacket = {
+                    Message: messaggio,
+                    ToType: _ChatType,
+                    From: accID,
+                    To: to
+                };
                 messageObj = JSON.stringify(messageObj);
                 conn.send(messageObj);
                 $("#message").val("");
@@ -297,13 +304,15 @@
         //hide user_to_user chat
         $("#container_box_chat_with_user").hide();
         CurrentChatRoomID = ChatBox.dataset.chatroomid;
-        if (CurrentChatRoomID != "globalchat") {
+        if (CurrentChatRoomID !== "globalchat") {
             $("#container_chat").data("roomtype", ChatType.CHAT_TYPE_USER_TO_USER);
             //I Have to ask to the server for the chat that i selected
             var ReqObj = new Object();
             ReqObj.Type = CommandType.chatsrequest;
-            ReqObj.accid = accID;
-            ReqObj.ChatRequestID = CurrentChatRoomID;
+            ReqObj.ChatsRequestPacket = {
+                AccID: accID,
+                ChatRequestID: CurrentChatRoomID
+            };
             ReqObj = JSON.stringify(ReqObj);
             conn.send(ReqObj);
         }

@@ -1,4 +1,4 @@
-ï»¿/*!
+/*!
 * jQuery Mobile 1.4.5
 * Git HEAD hash: 68e55e78b292634d3991c795f06f5e37a512decc <> Date: Fri Oct 31 2014 17:33:30 UTC
 * http://jquerymobile.com
@@ -2046,7 +2046,7 @@ function transform3dTest() {
 
 	el = document.createElement( "div" );
 	transforms = {
-		// Weï¿½re omitting Opera for the time being; MS uses unprefixed.
+		// We’re omitting Opera for the time being; MS uses unprefixed.
 		"MozTransform": "-moz-transform",
 		"transform": "transform"
 	};

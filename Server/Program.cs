@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Reflection;
 using System.Threading;
 using NLog;
@@ -15,11 +16,12 @@ namespace Server
         public static ServerContext Server;
 
         private static Thread socketThread;
+        
 
         static void Main(string[] args)
         {
-
-			Console.ForegroundColor = ConsoleColor.Red;
+            
+            Console.ForegroundColor = ConsoleColor.Red;
 			Console.Title = "EllApp WebSocket Server";
 			Console.WriteLine("Running EllApp Socket Server ...");
 			Console.WriteLine("[Type \"exit\" and hit enter to stop the server]");
