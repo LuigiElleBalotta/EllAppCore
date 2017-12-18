@@ -8,15 +8,14 @@ namespace Server.Network.Handlers
 {
 	public class RegistrationHandler
 	{
-		public static List<GenericResponsePacket> RegisterAccount(RegistrationPacket packet, ClientContext uContext)
+		public static List<GenericSerializableResponsePacket> RegisterAccount(RegistrationPacket packet, ClientContext uContext)
 		{
-            List<GenericResponsePacket> responsePackets = new List<GenericResponsePacket>();
+            List<GenericSerializableResponsePacket> responsePackets = new List<GenericSerializableResponsePacket>();
 
 			bool result = AccountMgr.CreateAccount(packet.Username, packet.Psw, packet.Email);
 
-            GenericResponsePacket grp = new GenericResponsePacket
-                                        {
-                                            Client = uContext,
+            GenericSerializableResponsePacket grp = new GenericSerializableResponsePacket
+            {
                                             Response = new RegistrationResponse
                                                        {
                                                            MessageType = MessageType.MSG_TYPE_REGISTRATION_RESPONSE,

@@ -44,6 +44,7 @@ namespace Server.Network
                     List<GenericSerializableResponsePacket> loginResponses = (List<GenericSerializableResponsePacket>) metodo.Invoke( lh, new object[] {aContext, sessions, OnlineConnections, obj.LoginPacket});
 
                     List<GenericResponsePacket> completeLoginResponses = new List<GenericResponsePacket>();
+
                     foreach ( GenericSerializableResponsePacket loginResponse in loginResponses )
                     {
                         GenericResponsePacket resp = new GenericResponsePacket();
@@ -71,7 +72,19 @@ namespace Server.Network
 				case CommandType.Registration:
 					type = rh.GetType();
 					metodo = type.GetMethod("RegisterAccount");
-					ret.AddRange((List<GenericResponsePacket>)metodo.Invoke(rh, new object[]{ obj.RegistrationPacket, aContext }));
+
+                    List<GenericSerializableResponsePacket> registrationResponses = (List<GenericSerializableResponsePacket>)metodo.Invoke(rh, new object[] { obj.RegistrationPacket, aContext });
+
+                    List<GenericResponsePacket> completeRegistrationResponses = new List<GenericResponsePacket>();
+
+                    foreach (GenericSerializableResponsePacket registrationResponse in registrationResponses)
+                    {
+                        GenericResponsePacket resp = new GenericResponsePacket();
+                        resp.CopyToResponsePacket(aContext, registrationResponse);
+                        completeRegistrationResponses.Add(resp);
+                    }
+
+                    ret.AddRange( completeRegistrationResponses );
 					break;
 			}
 

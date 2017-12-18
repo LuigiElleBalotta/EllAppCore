@@ -84,8 +84,7 @@ namespace Server.Network.Handlers
                 Console.WriteLine( ex.InnerException.StackTrace );
             }
 	        
-
-            //Console.WriteLine( $"Response: {Environment.NewLine}{JsonConvert.SerializeObject(responsePackets/*, Program.settings*/)}");
+            
             return responsePackets;
         }
     }

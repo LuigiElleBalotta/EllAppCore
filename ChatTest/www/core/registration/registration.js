@@ -11,7 +11,7 @@ $("document").ready(function ()
         var emailok = false;
         if (isValidEmail(email))
             emailok = true;
-        if (username == "" || password == "" || email == "") {
+        if (username === "" || password === "" || email === "") {
             $("#inviaModuloCreazioneAccount").button("reset");
             $("#risultato").html("Errore nella creazione dell'account");
             $("#avviso").show(300);
@@ -27,57 +27,48 @@ $("document").ready(function ()
                 return false;
 			}
 
-	        conn = new WebSocket('ws://192.168.0.113:10726');
-	        conn.onmessage = function (e) {
-		        try {
-					var dataReceived = e.data;
-					var msg = "";
-			        var canGoOn = false;
-					if (dataReceived != "")
-					{
-				        var obj = JSON.parse(dataReceived);
-						switch (parseInt(obj.MessageType))
-						{
-							case 5:
-								if (obj.data.Result) {
-									msg = "Success!";
-									canGoOn = true;
-								}
-								else
-									msg = "Failure!";
-								break;
-							default: //Throw away everything else
-								break;
-						}
-						$("#risultato").html(msg);
-						$("#avviso").show(300);
-						$("#inviaModuloCreazioneAccount").button("reset");
-						if (!canGoOn)
-							setTimeout(resetAvviso, 3000);
-						else
-							setTimeout(function () { window.location.href = "../login/login.html"; }, 100);
-			        }
-		        }
-		        catch (e) {
-			        alert(e);
-		        }
-	        };
+            var regObj = new Object();
+            regObj.Type = 4;
+            regObj.RegistrationPacket = {
+                Username: username,
+                Psw: password,
+                Email: email
+            };
+            regObj = JSON.stringify(regObj);
 
-	        conn.onopen = function (e) {
-		        var regObj = new Object();
-		        regObj.Type = 4;
-                regObj.RegistrationPacket = {
-                    Username: username,
-                    Psw: password,
-                    Email: email
-                };
-				regObj = JSON.stringify(regObj);
-				conn.send(regObj);
-
-		        isConnected = true;
-	        };
-
-	        conn.onclose = function (e) { /*TODO: to handle*/ };
+            $.ajax({
+                url: "http://localhost/60558/SendData/",
+                success: function (result)
+                {
+                    var msg = "";
+                    var canGoOn = false;
+                    if (result !== "") {
+                        alert(result);
+                        return;
+                        /*var obj = JSON.parse(result);
+                        switch (parseInt(obj.MessageType)) {
+                        case 5:
+                            if (obj.data.Result) {
+                                msg = "Success!";
+                                canGoOn = true;
+                            } else
+                                msg = "Failure!";
+                            break;
+                        default: //Throw away everything else
+                            break;
+                        }
+                        $("#risultato").html(msg);
+                        $("#avviso").show(300);
+                        $("#inviaModuloCreazioneAccount").button("reset");
+                        if (!canGoOn)
+                            setTimeout(resetAvviso, 3000);
+                        else
+                            setTimeout(function() { window.location.href = "../login/login.html"; }, 100);*/
+                    }
+                },
+                method: 'POST',
+                data: { data: regObj }
+            });
         }
     });
 
