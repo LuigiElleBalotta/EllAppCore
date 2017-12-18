@@ -11,7 +11,7 @@ using Server.Network;
 using Server.Network.Packets.Client;
 using Server.Network.Packets.Server;
 
-namespace EllApp_server.Network
+namespace Server.Network
 {
 	public class ClassChooser
 	{
@@ -23,7 +23,7 @@ namespace EllApp_server.Network
 
 			logger.Info($"======================================={Environment.NewLine}Received packet: {Environment.NewLine} {json} { Environment.NewLine }=======================================");
 
-			GenericRequestPacket obj = JsonConvert.DeserializeObject<GenericRequestPacket>(json);
+			GenericRequestPacket obj = JsonConvert.DeserializeObject<GenericRequestPacket>(json/*, Program.settings*/);
 			Type type;
 			MethodInfo metodo;
 
@@ -38,7 +38,20 @@ namespace EllApp_server.Network
 				case CommandType.Login:
 					type = lh.GetType();
 					metodo = type.GetMethod("DoLogin");
-					ret.AddRange((List<GenericResponsePacket>)metodo.Invoke(lh, new object[]{ aContext, sessions, OnlineConnections, obj.LoginPacket }));
+
+                    Console.WriteLine("LOGIN REQUEST FROM " + aContext.Socket.RemoteEndPoint);
+
+                    List<GenericSerializableResponsePacket> loginResponses = (List<GenericSerializableResponsePacket>) metodo.Invoke( lh, new object[] {aContext, sessions, OnlineConnections, obj.LoginPacket});
+
+                    List<GenericResponsePacket> completeLoginResponses = new List<GenericResponsePacket>();
+                    foreach ( GenericSerializableResponsePacket loginResponse in loginResponses )
+                    {
+                        GenericResponsePacket resp = new GenericResponsePacket();
+                        resp.CopyToResponsePacket( aContext, loginResponse );
+                        completeLoginResponses.Add( resp );
+                    }
+
+                    ret.AddRange(completeLoginResponses);
 					break;
 				case CommandType.Message:
 					type = messageHandler.GetType();

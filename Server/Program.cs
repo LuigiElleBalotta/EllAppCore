@@ -16,11 +16,11 @@ namespace Server
         public static ServerContext Server;
 
         private static Thread socketThread;
-        
+
 
         static void Main(string[] args)
         {
-            
+
             Console.ForegroundColor = ConsoleColor.Red;
 			Console.Title = "EllApp WebSocket Server";
 			Console.WriteLine("Running EllApp Socket Server ...");

@@ -4,11 +4,10 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-using EllApp_server.Network;
+using Server.Network;
 using Lappa.ORM.Constants;
 using Newtonsoft.Json;
 using Server.Classes;
-using Server.Network;
 using Server.Network.Packets.Server;
 using Session = Server.Classes.Session;
 
@@ -149,7 +148,7 @@ namespace Server
                         var responses = ClassChooser.Handle( val.Context, content, Program.Server.Sessions, Program.Server.OnlineConnections );
 
                         foreach( GenericResponsePacket response in responses ) {
-                            Send( response.Client.Socket, JsonConvert.SerializeObject( response.Response )  );
+                            Send( val.Context.Socket, JsonConvert.SerializeObject( response.Response )  );
                         }
                     } else {
                         Console.WriteLine( $"Nessun client connesso dall'ip {state.workSocket.RemoteEndPoint}" );

@@ -3,13 +3,18 @@ using Server.definitions;
 
 namespace Server.Network.Packets.Server
 {
-    public class GenericResponsePacket
+    public class GenericResponsePacket : GenericSerializableResponsePacket
     {
         public ClientContext Client { get; set; }
-        public Response Response { get; set; }
 
-        public SenderType SenderType { get; set; }
-        public int IDAccountSender { get; set; }
-        public int IDAccountReceiver { get; set; }
+        public void CopyToResponsePacket(ClientContext ctx, GenericSerializableResponsePacket pkt)
+        {
+            this.Client = ctx;
+
+            this.Response = pkt.Response;
+            this.IDAccountReceiver = pkt.IDAccountReceiver;
+            this.IDAccountSender = pkt.IDAccountSender;
+            this.SenderType = pkt.SenderType;
+        }
     }
 }
